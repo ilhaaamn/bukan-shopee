@@ -3,7 +3,7 @@ import Card from "./card.component";
 const CardList = (props) => {
   console.log(props);
   return (
-    <div className="grid gap-4 sm:grid-cols-3 lg:grid-cols-6 md:grid-cols-3">
+    <div className="grid gap-4 sm:grid-cols-3 lg:grid-cols-5 md:grid-cols-3">
       {props.items.map((item, index) => {
         return (
           <Card
