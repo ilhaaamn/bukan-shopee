@@ -1,15 +1,35 @@
-import { useRef } from "react";
+import { useEffect, useRef, useState } from "react";
+import { useDispatch } from "react-redux";
 import { NavLink } from "react-router-dom";
+import { searchShopItems } from "../../../store/items-action";
 
 const NavBar = (props) => {
+  const dispatch = useDispatch();
   const textInputRef = useRef(null);
+  const [trandingKeyword, setTrandingKeyword] = useState([]);
+
+  useEffect(() => {
+    getTrandingKeywords();
+  }, []);
+
+  const getTrandingKeywords = async () => {
+    console.log("getTrandingKeywords");
+    const uri =
+      "https://shopee.co.id/api/v4/search/trending_search?bundle=popsearch&limit=8&offset=0";
+    console.log(uri);
+    const response = await fetch(uri);
+    const data = await response.json();
+    console.log(data.data.querys);
+    setTrandingKeyword(data.data.querys);
+  };
 
   function submitFormHandler(event) {
     event.preventDefault();
 
     const enteredText = textInputRef.current.value;
+    console.log(enteredText);
     // optional: Could validate here
-    props.onSearch({ keyword: enteredText });
+    dispatch(searchShopItems(enteredText));
   }
 
   return (
@@ -68,8 +88,8 @@ const NavBar = (props) => {
               </span>
             </form>
             <div className="flex">
-              {props.trandingKeyword &&
-                props.trandingKeyword.map((keyword, index) => {
+              {trandingKeyword &&
+                trandingKeyword.map((keyword, index) => {
                   return (
                     <NavLink
                       to={"#"}
