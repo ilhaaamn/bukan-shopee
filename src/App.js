@@ -9,27 +9,13 @@ import { itemsActions } from "./store/item-slice";
 import { searchShopItems } from "./store/items-action";
 
 const App = () => {
-  const dispatch = useDispatch();
-
-  useEffect(() => {
-    console.log("useEffect App called");
-    dispatch(searchShopItems("terlaris"));
-  }, [dispatch]);
-
   return (
-    <Suspense
-      fallback={
-        <div className="centered">
-          <LoadingSpinner />
-        </div>
-      }
-    >
-      <Layout>
-        <Routes>
-          <Route path="/" exact element={<SearchPage></SearchPage>}></Route>
-        </Routes>
-      </Layout>
-    </Suspense>
+    <Layout>
+      <Routes>
+        <Route path="/" exact element={<SearchPage></SearchPage>}></Route>
+        <Route path="/search" exact element={<SearchPage></SearchPage>}></Route>
+      </Routes>
+    </Layout>
   );
 };
 

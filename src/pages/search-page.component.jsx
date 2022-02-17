@@ -1,35 +1,25 @@
-import { Component } from "react";
-import { useSelector } from "react-redux";
+import { useEffect, useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { useLocation } from "react-router-dom";
 import CardList from "../components/card-list/card-list.component";
+import FilterSideBar from "../components/filter-sidebar/filter-sidebar.component";
 import LoadingSpinner from "../components/UI/LoadingSpinner";
+import { searchShopItems } from "../store/items-action";
 
 const SearchPage = () => {
   const items = useSelector((state) => state.items);
+  const location = useLocation();
+  const search = new URLSearchParams(location.search);
+  const keyword = search.get("keyword");
+  const dispatch = useDispatch();
+
+  useEffect(() => {
+    dispatch(searchShopItems(keyword));
+  }, [dispatch, keyword]);
 
   return (
     <div className="container flex flex-row mx-auto mt-5 mb-20">
-      <div className="basis-1/4 flex flex-col ">
-        <div className="text-xl font-bold mb-6">FILTER</div>
-        <div className="text-md font-semibold">Metode Pembayaran</div>
-        <label className="text-sm mt-2">
-          <input
-            type="checkbox"
-            value={"COD (Bayar ditempat)"}
-            name="COD (Bayar ditempat)"
-            className="mr-2"
-          />
-          COD (Bayar ditempat)
-        </label>
-        <label className="text-sm mt-2">
-          <input
-            type="checkbox"
-            value={"Cicilan"}
-            name="Cicilan"
-            className="mr-2"
-          />
-          Cicilan
-        </label>
-      </div>
+      <FilterSideBar keyword={keyword} />
       <div className="basis-full self-center">
         {items.loading ? (
           <LoadingSpinner></LoadingSpinner>

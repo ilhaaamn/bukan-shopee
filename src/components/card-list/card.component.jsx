@@ -14,7 +14,7 @@ const Card = (props) => {
             />
             <div
               className={`text-white absolute -left-1 top-3 text-xs font-semibold pr-2 pl-2 ${
-                props.isOfficial ? "bg-red-700" : "bg-orange-600"
+                props.isOfficial ? "bg-red-700" : "bg-blue-600"
               }`}
             >
               {props.isOfficial ? "Mall" : props.isVerified ? "Star" : ""}
@@ -29,11 +29,11 @@ const Card = (props) => {
           </div>
         </div>
       </NavLink>
-      <div className="flex items-center bg-orange-600 sticky bottom-0 invisible group-hover:visible transition-opacity duration-150 rounded-bl-sm rounded-br-sm">
-        <NavLink to="#" className="flex-1 text-white text-sm p-2">
+      <button className="flex items-center w-full bg-blue-600 bottom-0 invisible group-hover:visible transition-opacity duration-150 rounded-bl-sm rounded-br-sm">
+        <NavLink to="#" className="flex-1 text-white text-sm p-2 text-center">
           Beli Sekarang
         </NavLink>
-      </div>
+      </button>
     </div>
   );
 };
